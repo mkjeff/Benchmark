@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26206.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastActivator", "FastActivator\FastActivator.csproj", "{6D439039-55AE-4B7D-9A44-7893E73E68C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SequentialGuid", "SequentialGuid\SequentialGuid.csproj", "{00AF20E3-DC9F-41C3-B146-69880147CD19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6D439039-55AE-4B7D-9A44-7893E73E68C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D439039-55AE-4B7D-9A44-7893E73E68C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D439039-55AE-4B7D-9A44-7893E73E68C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00AF20E3-DC9F-41C3-B146-69880147CD19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00AF20E3-DC9F-41C3-B146-69880147CD19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00AF20E3-DC9F-41C3-B146-69880147CD19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00AF20E3-DC9F-41C3-B146-69880147CD19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
