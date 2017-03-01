@@ -8,8 +8,9 @@ Frequency=3507501 Hz, Resolution=285.1033 ns, Timer=TSC
 
 
 ```
-                         Method |        Mean |    StdDev |      Median |  Gen 0 | Allocated |
-------------------------------- |------------ |---------- |------------ |------- |---------- |
-                        NewGuid | 247.2260 ns | 1.5294 ns | 247.2297 ns |      - |      24 B |
-                 SequentialGuid |  58.7613 ns | 2.9933 ns |  56.8840 ns | 0.0157 |      80 B |
- SuppressSecuritySequentialGuid |  50.5736 ns | 0.4364 ns |  50.4986 ns | 0.0157 |      80 B |
+                         Method |        Mean |    StdDev |  Gen 0 | Allocated |
+------------------------------- |------------ |---------- |------- |---------- |
+                        NewGuid | 265.6954 ns | 8.2995 ns |      - |      24 B |
+                 SequentialGuid |  59.7019 ns | 1.0308 ns | 0.0156 |      80 B |
+ SuppressSecuritySequentialGuid |  52.2618 ns | 0.2585 ns | 0.0157 |      80 B |
+       PureCsCodeSequentialGuid | 664.3561 ns | 7.1017 ns |      - |      88 B |
