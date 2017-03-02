@@ -8,9 +8,9 @@ Frequency=3323587 Hz, Resolution=300.8797 ns, Timer=TSC
 
 
 ```
-                         Method |        Mean |    StdDev |  Gen 0 | Allocated |
-------------------------------- |------------ |---------- |------- |---------- |
-                        NewGuid |  98.2373 ns | 0.6335 ns | 0.0043 |      32 B |
-                 SequentialGuid |  67.9856 ns | 0.4902 ns | 0.0325 |     112 B |
- SuppressSecuritySequentialGuid |  64.3827 ns | 1.0451 ns | 0.0325 |     112 B |
-       PureCsCodeSequentialGuid | 395.1265 ns | 2.7922 ns | 0.0307 |     136 B |
+                   Method |        Mean |    StdDev |  Gen 0 | Allocated |
+------------------------- |------------ |---------- |------- |---------- |
+                  NewGuid |  93.0952 ns | 0.0734 ns | 0.0070 |      32 B |
+ PureCsCodeSequentialGuid | 367.4043 ns | 0.3482 ns | 0.0317 |     136 B |
+     UuidCreateSequential |  54.9215 ns | 0.0659 ns | 0.0323 |     112 B |
+ FastUuidCreateSequential |  46.7796 ns | 0.0906 ns | 0.0195 |      72 B |
