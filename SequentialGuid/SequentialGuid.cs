@@ -12,35 +12,42 @@ namespace SequentialGuid
         public Guid NewGuid() => Guid.NewGuid();
 
         [Benchmark]
-        public Guid SequentialGuid() => SQLGuidUtil.NewSequentialId();
-
-        [Benchmark]
-        public Guid SuppressSecuritySequentialGuid() => SQLGuidUtil.SuppressSecuritySequentialGuid();
-
-        [Benchmark]
         public Guid PureCsCodeSequentialGuid() => Identifier.NewSequentialGuid();
+
+        [Benchmark]
+        public Guid UuidCreateSequential() => SQLGuidUtil.NewSequentialId();
+
+        [Benchmark]
+        public Guid FastUuidCreateSequential() => SQLGuidUtil.FastSequentialGuid();
     }
 
     public class SQLGuidUtil
     {
-        
+
         [DllImport("rpcrt4.dll", SetLastError = true)]
         static extern int UuidCreateSequential(out Guid guid);
 
         public static Guid NewSequentialId()
         {
+            const int RPC_S_OK = 0;
             Guid guid;
-            UuidCreateSequential(out guid);
+            int hr = UuidCreateSequential(out guid);
+            if (hr != RPC_S_OK)
+                throw new ApplicationException("UuidCreateSequential failed: " + hr);
             var s = guid.ToByteArray();
             var t = new byte[16];
+            // reverse 0~3
             t[3] = s[0];
             t[2] = s[1];
             t[1] = s[2];
             t[0] = s[3];
+            // reverse 4~5
             t[5] = s[4];
             t[4] = s[5];
+            // reverse 6~7
             t[7] = s[6];
             t[6] = s[7];
+
             t[8] = s[8];
             t[9] = s[9];
             t[10] = s[10];
@@ -53,22 +60,29 @@ namespace SequentialGuid
         }
 
         [DllImport("rpcrt4.dll", EntryPoint = "UuidCreateSequential", SetLastError = true), SuppressUnmanagedCodeSecurity]
-        static extern int SUuidCreateSequential(out Guid guid);
+        static extern int SuppressSecuritySequentialGuid(out Guid guid);
 
         public static Guid SuppressSecuritySequentialGuid()
         {
+            const int RPC_S_OK = 0;
             Guid guid;
-            SUuidCreateSequential(out guid);
+            int hr = SuppressSecuritySequentialGuid(out guid);
+            if (hr != RPC_S_OK)
+                throw new ApplicationException("UuidCreateSequential failed: " + hr);
             var s = guid.ToByteArray();
             var t = new byte[16];
+            // reverse 0~3
             t[3] = s[0];
             t[2] = s[1];
             t[1] = s[2];
             t[0] = s[3];
+            // reverse 4~5
             t[5] = s[4];
             t[4] = s[5];
+            // reverse 6~7
             t[7] = s[6];
             t[6] = s[7];
+
             t[8] = s[8];
             t[9] = s[9];
             t[10] = s[10];
@@ -78,6 +92,40 @@ namespace SequentialGuid
             t[14] = s[14];
             t[15] = s[15];
             return new Guid(t);
+        }
+
+        [DllImport("rpcrt4.dll", EntryPoint = "UuidCreateSequential", SetLastError = true), SuppressUnmanagedCodeSecurity]
+        static extern int FastUuidCreateSequential(out Guid guid);
+
+        public static Guid FastSequentialGuid()
+        {
+            const int RPC_S_OK = 0;
+            Guid g;
+            int hr = FastUuidCreateSequential(out g);
+            if (hr != RPC_S_OK)
+                throw new ApplicationException("UuidCreateSequential failed: " + hr);
+            var s = g.ToByteArray();
+
+            // reverse 0~3
+            byte tmp = s[3];
+            s[3] = s[0];
+            s[0] = tmp;
+
+            tmp = s[2];
+            s[2] = s[1];
+            s[1] = tmp;
+
+            // reverse 4~5
+            tmp = s[5];
+            s[5] = s[4];
+            s[4] = tmp;
+
+            // reverse 6~7
+            tmp = s[7];
+            s[7] = s[6];
+            s[6] = s[7];
+
+            return new Guid(s);
         }
     }
 
