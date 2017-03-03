@@ -123,7 +123,7 @@ namespace SequentialGuid
             // reverse 6~7
             tmp = s[7];
             s[7] = s[6];
-            s[6] = s[7];
+            s[6] = tmp;
 
             return new Guid(s);
         }
