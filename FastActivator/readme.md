@@ -9,15 +9,17 @@ Frequency=3507504 Hz, Resolution=285.1030 ns, Timer=TSC
 
 
 ```
- |                             Method |      Mean |     Error |    StdDev |
- |----------------------------------- |----------:|----------:|----------:|
- |                       'new Node()' |  2.669 ns | 0.0307 ns | 0.0287 ns |
- |                 '() => new Node()' |  5.678 ns | 0.1744 ns | 0.1632 ns |
- |      'Create<T>() where T : new()' | 96.676 ns | 1.5484 ns | 1.4483 ns |
- |           'Compiled () => new T()' | 13.130 ns | 0.1188 ns | 0.1053 ns |
- |       FastActivator.Create<Node>() |  7.887 ns | 0.0785 ns | 0.0656 ns |
- |          FastActivator<T>.Create() |  4.237 ns | 0.0617 ns | 0.0515 ns |
- |     Activator.CreateInstance(type) | 45.885 ns | 0.3023 ns | 0.2827 ns |
- | FastActivator.CreateInstance(type) | 24.450 ns | 0.1977 ns | 0.1543 ns |
-
-
+ |                                  Method |      Mean |     Error |    StdDev |
+ |---------------------------------------- |----------:|----------:|----------:|
+ |                            'new Node()' |  2.687 ns | 0.0788 ns | 0.0737 ns |
+ |                      '() => new Node()' |  5.537 ns | 0.0932 ns | 0.0826 ns |
+ |           Activator.CreateInstance<T>() | 96.256 ns | 1.9479 ns | 1.8220 ns |
+ |   Activator.CreateInstance<ValueType>() | 43.744 ns | 0.2975 ns | 0.2783 ns |
+ |             'Compiled( () => new T() )' | 12.333 ns | 0.0776 ns | 0.0688 ns |
+ |               FastActivator.Create<T>() |  8.022 ns | 0.0539 ns | 0.0450 ns |
+ |               FastActivator<T>.Create() |  4.037 ns | 0.0225 ns | 0.0176 ns |
+ |       FastActivator<ValueType>.Create() |  1.849 ns | 0.0124 ns | 0.0116 ns |
+ |          Activator.CreateInstance(type) | 45.783 ns | 1.4076 ns | 1.3824 ns |
+ |      FastActivator.CreateInstance(type) | 24.523 ns | 0.1111 ns | 0.0868 ns |
+ |     Activator.CreateInstance(valueType) | 38.564 ns | 0.2420 ns | 0.2020 ns |
+ | FastActivator.CreateInstance(valueType) | 25.277 ns | 0.1312 ns | 0.1163 ns |
