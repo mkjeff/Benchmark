@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection.Emit;
 using BenchmarkDotNet.Attributes;
@@ -7,29 +8,33 @@ namespace ConsoleApp1
 {
     public class Creator
     {
-        static T Create<T>() where T : Node, new() => new T();
+        private static readonly Type type = typeof(Node);
+        static T Create<T>() where T : new() => new T();
         static Func<Node> NodeFactory => () => new Node();
 
-        [Benchmark]
+        [Benchmark(Description = "new Node()")]
         public Node ConstructorCall() => new Node();
 
-        [Benchmark]
+        [Benchmark(Description = "() => new Node()")]
         public Node FuncBasedFactory() => NodeFactory();
 
-        [Benchmark]
-        public static Node ActivatorCreateInstace() => (Node)Activator.CreateInstance(typeof(Node));
-
-        [Benchmark]
+        [Benchmark(Description = "Generic constraint where T : new()")]
         public Node FactoryWithNewConstraint() => Create<Node>();
 
-        [Benchmark]
+        [Benchmark(Description = "Compiled( () => new T() )")]
         public Node CompiledExpression() => CompiledExpressionMethod.Create<Node>();
 
-        [Benchmark]
+        [Benchmark(Description = "FastActivator.Create<T>()")]
         public Node FastActivatorCreateInstance() => FastActivator.Create<Node>();
 
-        [Benchmark]
+        [Benchmark(Description = "FastActivator<T>.Create()")]
         public Node FastActivator2CreateInstance() => FastActivator<Node>.Create();
+
+        [Benchmark(Description = "Activator.CreateInstance(type)")]
+        public object ActivatorCreateInstanceNonGeneric() => Activator.CreateInstance(type);
+
+        [Benchmark(Description = "FastActivator.CreateInstance(type)")]
+        public object FastActivatorCreateInstanceNonGeneric() => FastActivator.CreateInstance(type);
     }
 
     public static class CompiledExpressionMethod
@@ -55,6 +60,16 @@ namespace ConsoleApp1
         {
             return FastActivatorImpl<T>.Create();
         }
+
+        private static readonly ConcurrentDictionary<Type, Func<object>> FactoryDictionary
+            = new ConcurrentDictionary<Type, Func<object>>(1,10);
+
+        public static object CreateInstance(Type type) =>
+            FactoryDictionary.GetOrAdd(type,
+                key => (Func<object>)typeof(DynamicModuleLambdaCompiler)
+                    .GetMethod(nameof(DynamicModuleLambdaCompiler.GenerateFactory))
+                    .MakeGenericMethod(key)
+                    .Invoke(null, null))();
 
         private static class FastActivatorImpl<T> where T : new()
         {

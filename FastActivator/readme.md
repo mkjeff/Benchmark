@@ -1,22 +1,23 @@
 https://blogs.msdn.microsoft.com/seteplia/2017/02/01/dissecting-the-new-constraint-in-c-a-perfect-example-of-a-leaky-abstraction/
 ``` ini
 
-BenchmarkDotNet=v0.10.1, OS=Microsoft Windows NT 6.2.9200.0
-Processor=Intel(R) Core(TM) i5-3570K CPU 3.40GHz, ProcessorCount=4
-Frequency=3323587 Hz, Resolution=300.8797 ns, Timer=TSC
-  [Host]     : Clr 4.0.30319.42000, 64bit RyuJIT-v4.6.1637.0
-  DefaultJob : Clr 4.0.30319.42000, 64bit RyuJIT-v4.6.1637.0
+BenchmarkDotNet=v0.10.9, OS=Windows 10 Redstone 2 (10.0.15063)
+Processor=Intel Core i7-4790 CPU 3.60GHz (Haswell), ProcessorCount=8
+Frequency=3507504 Hz, Resolution=285.1030 ns, Timer=TSC
+  [Host]     : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2102.0
+  DefaultJob : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2102.0
 
-Allocated=24 B  
 
 ```
-                       Method |       Mean |    StdErr |    StdDev |  Gen 0 |
------------------------------ |----------- |---------- |---------- |------- |
-              ConstructorCall |  4.6303 ns | 0.0528 ns | 0.2044 ns | 0.0072 |
-             FuncBasedFactory |  7.8399 ns | 0.1165 ns | 0.5825 ns | 0.0068 |
-       ActivatorCreateInstace | 52.6771 ns | 0.0608 ns | 0.2354 ns | 0.0045 |
-     FactoryWithNewConstraint | 63.0015 ns | 0.0604 ns | 0.2179 ns | 0.0041 |
-           CompiledExpression | 16.3605 ns | 0.0286 ns | 0.1107 ns | 0.0068 |
-  FastActivatorCreateInstance | 10.3308 ns | 0.0360 ns | 0.1395 ns | 0.0073 |
- FastActivator2CreateInstance |  4.8204 ns | 0.0083 ns | 0.0312 ns | 0.0072 |
+ |                             Method |      Mean |     Error |    StdDev |
+ |----------------------------------- |----------:|----------:|----------:|
+ |                       'new Node()' |  2.669 ns | 0.0307 ns | 0.0287 ns |
+ |                 '() => new Node()' |  5.678 ns | 0.1744 ns | 0.1632 ns |
+ |      'Create<T>() where T : new()' | 96.676 ns | 1.5484 ns | 1.4483 ns |
+ |           'Compiled () => new T()' | 13.130 ns | 0.1188 ns | 0.1053 ns |
+ |       FastActivator.Create<Node>() |  7.887 ns | 0.0785 ns | 0.0656 ns |
+ |          FastActivator<T>.Create() |  4.237 ns | 0.0617 ns | 0.0515 ns |
+ |     Activator.CreateInstance(type) | 45.885 ns | 0.3023 ns | 0.2827 ns |
+ | FastActivator.CreateInstance(type) | 24.450 ns | 0.1977 ns | 0.1543 ns |
+
 
