@@ -138,7 +138,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Creator.cs" />
+    <Compile Include="CompiledExpressionMethod.cs" />
+    <Compile Include="CreatorTest.cs" />
+    <Compile Include="FastActivator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

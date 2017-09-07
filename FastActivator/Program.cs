@@ -8,7 +8,7 @@ namespace BenchmarkTest
     {
         static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<Creator>();
+            var summary = BenchmarkRunner.Run<CreatorTest>();
 
             Console.WriteLine(summary);
 
