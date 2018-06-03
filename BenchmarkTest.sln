@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastActivator", "FastActivator\FastActivator.csproj", "{6D439039-55AE-4B7D-9A44-7893E73E68C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastActivator", "FastActivator\FastActivator.csproj", "{6D439039-55AE-4B7D-9A44-7893E73E68C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SequentialGuid", "SequentialGuid\SequentialGuid.csproj", "{00AF20E3-DC9F-41C3-B146-69880147CD19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SequentialGuid", "SequentialGuid\SequentialGuid.csproj", "{00AF20E3-DC9F-41C3-B146-69880147CD19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B02ECDE-EA44-4DBB-928E-D4D20A17E8AC}
 	EndGlobalSection
 EndGlobal

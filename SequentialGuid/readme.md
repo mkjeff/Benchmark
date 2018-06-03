@@ -1,16 +1,15 @@
-``` ini
-
-BenchmarkDotNet=v0.10.1, OS=Microsoft Windows NT 6.2.9200.0
-Processor=Intel(R) Core(TM) i7-4790 CPU 3.60GHz, ProcessorCount=8
-Frequency=3507504 Hz, Resolution=285.1030 ns, Timer=TSC
-  [Host]     : Clr 4.0.30319.42000, 64bit RyuJIT-v4.7.2102.0
-  DefaultJob : Clr 4.0.30319.42000, 64bit RyuJIT-v4.7.2102.0
-
-
 ```
-                   Method |        Mean |    StdDev |  Gen 0 | Allocated |
-------------------------- |------------ |---------- |------- |---------- |
-                  NewGuid |  83.4747 ns | 1.0752 ns | 0.0040 |      32 B |
- PureCsCodeSequentialGuid | 280.8663 ns | 2.5649 ns | 0.0198 |     136 B |
-     UuidCreateSequential |  55.3232 ns | 0.6649 ns | 0.0232 |     112 B |
- FastUuidCreateSequential |  47.5742 ns | 1.2835 ns | 0.0138 |      72 B |
+BenchmarkDotNet=v0.10.14, OS=Windows 10.0.17134
+Intel Core i5-3570K CPU 3.40GHz (Ivy Bridge), 1 CPU, 4 logical and 4 physical cores
+.NET Core SDK=2.1.300
+  [Host]     : .NET Core 2.1.0 (CoreCLR 4.6.26515.07, CoreFX 4.6.26515.06), 64bit RyuJIT
+  DefaultJob : .NET Core 2.1.0 (CoreCLR 4.6.26515.07, CoreFX 4.6.26515.06), 64bit RyuJIT
+```
+
+|                   Method |      Mean |     Error |    StdDev |  Gen 0 | Allocated |
+|------------------------- |----------:|----------:|----------:|-------:|----------:|
+|                  NewGuid |  84.73 ns | 0.1995 ns | 0.1866 ns |      - |       0 B |
+| PureCsCodeSequentialGuid | 164.33 ns | 0.7201 ns | 0.6736 ns |      - |       0 B |
+| FastUuidCreateSequential |  44.90 ns | 0.0914 ns | 0.0855 ns | 0.0127 |      40 B |
+|               CombLegacy | 350.63 ns | 1.5187 ns | 1.4206 ns | 0.0429 |     136 B |
+|                  CombSql | 298.40 ns | 0.8155 ns | 0.7628 ns | 0.0329 |     104 B |
